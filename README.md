@@ -1,4 +1,4 @@
-# LIVE Search of SQL databse with JQuery
+# LIVE Search of SQL databse with JQuery in PHP
 ![imagen_2024-02-20_191552216](https://github.com/alfonsolpzny/PHP-SQL-JQuery-ajax-live-search/assets/84392982/9021c3c1-73e3-4576-8887-35704b850240)
 
 ---
