@@ -5,6 +5,7 @@
 #### English
 
 Live search project for a SQL table with JQuery in a text field that searches for city information from different cities.
+**The default connection is SQLite; if you want another database connection, follow the instructions below**
 
 ## Database connection
 
@@ -49,6 +50,7 @@ To run the project you must execute the command `php -S localhost:8000` and go t
 ---
 #### Español
 Proyecto de busqueda en vivo de una tabla SQL con JQuery en un campo de texto que busca informacion de ciudades de diefentes ciudades.
+**La conexión predeterminada es SQLite; si desea otra conexión de base de datos, siga las instrucciones a continuación.**
 
 ## Conexión a la base de datos
 

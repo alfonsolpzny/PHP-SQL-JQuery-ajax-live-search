@@ -1,7 +1,33 @@
 <?php
-if (!empty($_POST)) {
-    $country = $_POST["country"];
+//This proyect have two types of connection, use what you need
+//NOTE: if you have issues wih connection you must discoment data base exensions usage un php.ini
 
+//example
+//extension=mysqli
+//extension=pdo_sqlite
+
+if (!empty($_POST)) {
+
+
+    //#########################################################
+    //PDO connection
+    try {
+        $conn = new PDO('sqlite:database.db');
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("ERROR: No se pudo conectar. " . $e->getMessage());
+    }
+    $country = $_POST["country"]; //get param from $_POST
+    $sql = "SELECT city, lat, lng, iso2, iso3, population, admin_name from cities where country = ? ;"; //query
+    $stmt = $conn->prepare($sql); // prepare query before execute
+    $stmt->execute([$country]); //Execute query with parameter where is '?' in query
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    //#########################################################
+    //MYSQLI connection
+    /*
+    $country = $_POST["country"];
 
     $DATABASE_HOST = "localhost";
     $DATABASE_USER = "root";
@@ -23,6 +49,8 @@ if (!empty($_POST)) {
     $rows = $result->fetch_all(MYSQLI_ASSOC);
 
     $conn->close();
+    }
+    */
 }
 ?>
 

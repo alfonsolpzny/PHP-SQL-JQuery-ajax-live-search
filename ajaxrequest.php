@@ -1,9 +1,46 @@
 <?php
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
 
+
+//#########################################################
+//PDO connection
+try {
+    $pdo = new PDO("sqlite:database.db");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("ERROR: No se pudo conectar. " . $e->getMessage());
+}
+
+// Verifica si se recibió un término de búsqueda
+if (isset($_REQUEST["term"])) {
+    $sql = "SELECT DISTINCT country FROM cities WHERE country LIKE ? LIMIT 10";
+
+    try {
+        $stmt = $pdo->prepare($sql);
+        $param_term = '%' . $_REQUEST["term"] . '%';
+
+        if ($stmt->execute([$param_term])) {
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($rows) > 0) {
+                foreach ($rows as $row) {
+                    echo "<option value='" . htmlspecialchars($row["country"]) . "'>";
+                }
+            } else {
+                echo "<p>No matches found</p>";
+            }
+        }
+    } catch (PDOException $e) {
+        echo "ERROR al ejecutar la consulta: " . $e->getMessage();
+    }
+}
+
+
+
+//#########################################################
+//MYSQLI connection
+
+/*
 $mysqli = new mysqli("localhost", "root", "toor", "ajax");
- 
 // Check connection
 if($mysqli === false){
     die("ERROR: Could not connect. " . $mysqli->connect_error);
@@ -44,4 +81,4 @@ if(isset($_REQUEST["term"])){
  
 // Close connection
 $mysqli->close();
-?>
+*/
